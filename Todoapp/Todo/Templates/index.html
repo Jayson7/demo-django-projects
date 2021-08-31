@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block title %} Todo App {% endblock title %}</title>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'home' %}">T.A.</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item mx-5">
+                <a class="nav-link" href="{% url 'home' %}">Home </a>
+            </li>
+            <li class="nav-item mx-5">
+                <a class="nav-link" href="{% url 'add' %}">Add A Task</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          Search
+        </button>
+        </form>
+    </div>
+</nav>
+
+<body>
+    <div class="container-fluid mt-1">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading text-center display-4">Todo App</h4>
+            <p></p>
+            <p class="mb-0"></p>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading text-left">All Task</h4>
+            <p></p>
+            <p class="mb-0"></p>
+        </div>
+    </div>
+    <div class="container">
+        {% if todos %}
+        <div class="row">
+            {% for i in todos %}
+            <div class="col-sm-6 my-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{i.title}}</h5>
+                        <p class="card-text">{{i.content}}</p>
+                        <a href="{% url 'update' i.pk %}" class="btn btn-primary">Update</a
+              >
+              <a href="  {% url 'delete' i.pk %}" class="btn btn-primary"
+                >Delete</a
+              >
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="text-center text-warning">No Task In Progress</div>
+      {% endif %}
+    </div>
+  </body>
+</html>
